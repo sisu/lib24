@@ -3,7 +3,6 @@
 
 void draw() {
 	Frame f;
-//	f.circle(1,2).radius(1.5).color({"red"});
 	auto& r = f.quad(0, 10, 0, 10);
 	r.outlineColor({1,1,1});
 	r.outlineSize(1);
@@ -14,18 +13,13 @@ void draw() {
 			s.outlineColor({1,1,0});
 			s.outlineSize(0.01);
 			if (i==1 && j==1) {
-				auto& x = s.quad(0,1,0,1);
-				x.color({1,0,1});
-				auto& y = s.quad(2,3,0,1);
-				y.color({1,1,0});
+				s.quad(0,1,0,1).color({1,0,1});
+				s.quad(2,3,0,1).color({1,1,0});
 			} else if (i==2) {
-				char c = 'A'+j;
-				s.text(string(1+j%3,c)).color({1,1,1});
+				s.text(string(1+j%3,'A'+j)).color({1,1,1});
 			}
 		}
 	}
-//	auto& x = f.quad(0,5,0,5);
-//	x.color({1,0,1});
 }
 
 int main() {
