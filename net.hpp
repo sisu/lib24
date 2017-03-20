@@ -1,8 +1,11 @@
 #pragma once
 #include <sstream>
 
+namespace net {
+
+using namespace std;
+
 void connect(const string& addr, int port);
-void init(int argc, const char** argv);
 void sendRaw(const string& data);
 string getLine();
 
@@ -20,5 +23,7 @@ void send(const string& msg, const A&... data) {
 	oss<<msg;
 	addAll(oss,data...);
 	oss<<'\n';
-//	sendRaw(oss.str());
+	sendRaw(oss.str());
 }
+
+} // namespace net
