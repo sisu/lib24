@@ -9,12 +9,12 @@ ODIR:=obj
 
 NSRC=net.cpp t.cpp
 
-all: $(BIN)
+all: $(BIN) net
 
 $(BIN): $(ODIR) $(OBJ)
 	$(CXX) -o "$@" $(OBJ) $(CXXFLAGS) $(LIBS)
 
-net: $(NSRC)
+net: $(NSRC) enum.hpp net.hpp
 	$(CXX) -o "$@" $(NSRC) $(CXXFLAGS) -lboost_system -lpthread
 
 $(OBJ): $(ODIR)/%.o: %.cpp
