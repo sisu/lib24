@@ -5,8 +5,11 @@
 #include <sstream>
 
 struct CheckFail {
+	CheckFail(const char* file, int line) {
+		oss<<file<<":"<<line<<": ERROR: ";
+	}
 	~CheckFail() {
-		std::cerr<<"ERROR: "<<oss.str()<<std::endl;
+		std::cerr<<oss.str()<<std::endl;
 		abort();
 	}
 
@@ -19,7 +22,9 @@ struct CheckFail {
 	std::ostringstream oss;
 };
 
-#define CHECK_OP(a,b,op) while(!(a op b)) CheckFail()\
+#define CHECK_FAIL CheckFail(__FILE__, __LINE__)
+
+#define CHECK_OP(a,b,op) while(!(a op b)) CHECK_FAIL\
 	<<"Expected "<<#a<<" ("<<a<<") " \
 	<<#op<<' '<<#b<<" ("<<b<<")\n"
 
@@ -28,4 +33,4 @@ struct CheckFail {
 #define CHECK_LT(a,b) CHECK_OP(a,b,<)
 #define CHECK_GE(a,b) CHECK_OP(a,b,>=)
 #define CHECK_LE(a,b) CHECK_OP(a,b,<=)
-#define CHECK(x) while(!(x)) CheckFail()<<"Expected "<<#x;
+#define CHECK(x) while(!(x)) CHECK_FAIL<<"Expected "<<#x;
