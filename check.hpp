@@ -33,4 +33,4 @@ struct CheckFail {
 #define CHECK_LT(a,b) CHECK_OP(a,b,<)
 #define CHECK_GE(a,b) CHECK_OP(a,b,>=)
 #define CHECK_LE(a,b) CHECK_OP(a,b,<=)
-#define CHECK(x) while(!(x)) CHECK_FAIL<<"Expected "<<#x;
+#define CHECK(x) while(!(x)) CHECK_FAIL<<"Expected "<<#x<<'\n'
