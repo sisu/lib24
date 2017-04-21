@@ -43,7 +43,15 @@ void Shape::drawObj(sf::RenderTarget& win, S& s) const {
 void Shape::draw(sf::RenderTarget& win) const {
 	Drawable s = shape();
 	if (s.shape) drawObj(win, *s.shape);
-	if (s.text) drawObj(win, *s.text);
+	if (s.text) {
+#if SFML_VERSION_MAJOR<=2 && SFML_VERSION_MINOR<4
+		auto& t = *s.text;
+		t.setColor(color_.toSF());
+		win.draw(t);
+#else
+		drawObj(win, *s.text);
+#endif
+	}
 
 	if (!shapes.empty()) {
 		sf::View old = win.getView();
