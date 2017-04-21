@@ -7,6 +7,11 @@
 
 using namespace std;
 
+template<class T, class...A>
+inline unique_ptr<T> MakeUnique(A&&... args) {
+	return unique_ptr<T>(new T(args...));
+}
+
 struct Vec2 {
 	double data[2];
 
@@ -119,7 +124,7 @@ struct HasShapes {
 
 	template<class T, class...A>
 	T& add(A&&... args) {
-		auto c = make_unique<T>(forward<A>(args)...);
+		auto c = MakeUnique<T>(forward<A>(args)...);
 		auto p = c.get();
 		shapes.push_back(move(c));
 		return *p;
@@ -190,7 +195,7 @@ struct Circle: public Shape {
 
 protected:
 	Drawable shape() const override {
-		auto c = make_unique<sf::CircleShape>(radius_);
+		auto c = MakeUnique<sf::CircleShape>(radius_);
 		c->setPosition(center_[0] - radius_, center_[1] - radius_);
 		return {move(c)};
 	}
@@ -208,7 +213,7 @@ struct Quad: public Shape {
 
 protected:
 	Drawable shape() const override {
-		auto s = make_unique<sf::RectangleShape>(
+		auto s = MakeUnique<sf::RectangleShape>(
 				sf::Vector2f(rect[0].size(), rect[1].size()));
 		s->setPosition(rect[0].from, rect[1].from);
 		return {move(s)};
@@ -239,7 +244,7 @@ struct Text: public Shape {
 
 protected:
 	Drawable shape() const override {
-		auto s = make_unique<sf::Text>(text_, getFont());
+		auto s = MakeUnique<sf::Text>(text_, getFont());
 		s->setPosition(pos_[0], pos_[1]);
 		return {move(s)};
 	}

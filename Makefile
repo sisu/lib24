@@ -1,4 +1,4 @@
-CXXFLAGS:=-Wall -O2
+CXXFLAGS:=-Wall -O2 -std=c++11
 LIBS:=-lsfml-graphics -lsfml-window -lsfml-system
 CXX:=g++
 BIN:=dt

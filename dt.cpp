@@ -31,5 +31,5 @@ int main() {
 #endif
 	draw();
 
-	sf::sleep(sf::seconds(1));
+	sf::sleep(sf::seconds(10));
 }
